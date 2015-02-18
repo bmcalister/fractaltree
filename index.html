@@ -1,0 +1,58 @@
+<html>
+<head>
+    <title>fractalTree</title>
+    <style type="text/css">body, html{ margin:0; } canvas{ position: absolute; margin: auto; left:0; right:0; top:0; bottom:0;} </style>
+</head>
+<body>
+
+    <script type="text/javascript" src="Line.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+
+    <script type="text/javascript">
+
+    var mouse = { position: {x:0,y:0}};
+
+    var canvas = document.createElement('canvas');
+    canvas.id = 'fractalCanvas';
+    canvas.width = 800;
+    canvas.height = 500;
+    document.body.appendChild(canvas);
+
+    var ctx = canvas.getContext('2d');
+
+    var fractalTree = new Line(12, 400, 500, 150, Math.PI/2, Math.PI/2, ctx);
+    ctx.translate(0.5, 0.5);
+
+    document.addEventListener('mousemove', function(e){ 
+      mouse.position.x = e.clientX || e.pageX; 
+      mouse.position.y = e.clientY || e.pageY;
+    }, false);
+    
+    function loop() {
+      clear();
+      update();
+      draw();
+      queue();
+    }
+     
+    function clear() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+     
+    function update() {
+
+    }
+     
+    function draw() {
+        fractalTree = new Line(12, 400, 500, 150, Math.PI/2, Math.PI / canvas.height * mouse.position.y, ctx);
+    }
+     
+    function queue() {
+      window.requestAnimationFrame(loop);
+    }
+
+    loop();
+ 
+    </script>
+</body>
+</html>
